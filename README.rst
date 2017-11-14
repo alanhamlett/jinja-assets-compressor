@@ -39,9 +39,9 @@ contain C code::
 Usage
 -----
 
-To use it, you just have to put your css or js inside a compress tag
+To use it, you just have to put your css or js inside a compress tag.
 
-::
+.. code-block:: python
 
     {% compress 'css' %}
     <style type="text/sass">
@@ -64,7 +64,7 @@ Configuring Jinja
 You just have to create an environment with jac on it and configure output dir,
 static prefix and say where it can find your sources.
 
-::
+.. code-block:: python
 
     import jinja2
 
@@ -82,7 +82,9 @@ get it done.
 Configuring Flask
 -----------------
 
-Where you configure your app, just do this::
+Where you configure your app, just do this:
+
+.. code-block:: python
 
     from jac.contrib.flask import JAC
 
@@ -99,7 +101,9 @@ Offline Compression
 -------------------
 
 JAC supports compressing static assets offline, then deploying to a production
-server. Here is a script to compress your static assets if using Flask::
+server. Here is a script to compress your static assets if using Flask:
+
+.. code-block:: python
 
     #!/usr/bin/env python
 
@@ -146,7 +150,9 @@ Custom Compressors
 ------------------
 
 The ``compressor_classes`` template env variable tells jac which compressor to
-use for each mimetype. The default value for ``compressor_classes`` is::
+use for each mimetype. The default value for ``compressor_classes`` is:
+
+.. code-block:: python
 
     {
         'text/css': LessCompressor,
@@ -161,7 +167,9 @@ To use an alternate compressor class, provide a class with a ``compile`` class
 method accepting arg ``text`` and kwargs ``mimetype``, ``cwd``, ``uri_cwd``,
 and ``debug``. For example, to use
 `libsass-python <https://github.com/dahlia/libsass-python>`_ for SASS files
-instead of the built-in SassCompressor, create your custom compressor class::
+instead of the built-in SassCompressor, create your custom compressor class:
+
+.. code-block:: python
 
     import sass
 
@@ -180,17 +188,23 @@ instead of the built-in SassCompressor, create your custom compressor class::
 
             return sass.compile(string=text, include_paths=include_paths)
 
-Then tell jac to use your custom compressor for ``text/sass`` mimetypes::
+Then tell jac to use your custom compressor for ``text/sass`` mimetypes:
+
+.. code-block:: python
 
     env.compressor_classes['text/sass'] = CustomSassCompressor
 
-The equivalent for Flask is::
+The equivalent for Flask is:
+
+.. code-block:: python
 
     jac.set_compressor('text/sass', CustomSassCompressor)
 
 To only customize the path of a compressor which forks a subprocess for the
 compile step (LessCompressor, CoffeeScriptCompressor, and SassCompressor), just
-extend the compressor class and overwrite the ``binary`` class attribute::
+extend the compressor class and overwrite the ``binary`` class attribute:
+
+.. code-block:: python
 
     from jac.compressors import SassCompressor
 
@@ -218,7 +232,9 @@ Running Tests
     make coverage
     make lint
 
-Or use tox to run with multiple python versions::
+Or use tox to run with multiple python versions:
+
+::
 
     pip install tox
     tox
